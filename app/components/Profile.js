@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Button } from 'react-native';
+import Test from './Test';
 
 
 
-const Profile = () => {
+const Profile = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>Profile</Text>
+                <Button 
+                    onPress={() => navigation.navigate('Test')}
+                    title='Move to another screen!'>                    
+                </Button>
         </View>
     )
 }
