@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
+import { View, StyleSheet, Dimensions, Animated } from 'react-native';
+import { startDetecting } from 'react-native/Libraries/Utilities/PixelRatio';
 import Tab from './Tab';
 
 const { width } = Dimensions.get('screen');
@@ -10,19 +11,33 @@ const TabBar = ({ state, navigation }) => {
   const { routes } = state;
   const renderColor = (currentTab) => (currentTab === selected ? 'red' : 'black');
 
+  const animation = useRef(new Animated.Value(0)).current;
+
   const handlePress = (activeTab, index) => {
     // console.log(activeTab);
-    if(state.index != index){
+    if(state.index !== index){
       setSelected(activeTab);
       navigation.navigate(activeTab);
     // console.log(state.index);
     }
   };
+
+  // const showTabBar = () => {
+  //   Animated.timing(animation, {
+  //     toValue: 1,
+  //     duration: 2000,
+  //     useNativeDriver: true,
+  //   }).start();
+  // }
+
+  // useEffect(() => {
+  //   showTabBar();
+  // },[]);
   
 
   return (
     <View style={styles.wrapper}>
-      <View style={styles.container}>
+      <Animated.View style={[styles.container, {transform: [{ translateY: animation }]}]}>
         {
           routes.map((route, index) => (
             <Tab 
@@ -34,7 +49,7 @@ const TabBar = ({ state, navigation }) => {
             />
           ))
         }
-      </View>
+      </Animated.View>
     </View>
 
   )

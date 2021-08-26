@@ -1,8 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-
-
 const Test = () => {
     return (
         <View style={styles.container}>

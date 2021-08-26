@@ -1,17 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import 'react-native-gesture-handler';
 import Profile from '../components/Profile';
 import Test from '../components/Test';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 
 
 const ProfileNavigator = () => {
     return (
-        <Stack.Navigator screenOptions={{ headerTransparent: true, title: '' }}>
-            <Stack.Screen name='Profile1' component={Profile} />
+        <Stack.Navigator screenOptions={{ headerTransparent: true, title: ''}}>
+            <Stack.Screen name='Profile' component={Profile} />
             <Stack.Screen name='Test' component={Test} />
         </Stack.Navigator>
     )
