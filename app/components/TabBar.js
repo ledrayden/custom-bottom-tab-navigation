@@ -1,6 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import { View, StyleSheet, Dimensions, Animated } from 'react-native';
 import { startDetecting } from 'react-native/Libraries/Utilities/PixelRatio';
+import { useTabBar } from '../contexts/TabBarProvider';
 import Tab from './Tab';
 
 const { width } = Dimensions.get('screen');
@@ -10,6 +11,8 @@ const TabBar = ({ state, navigation }) => {
   const [selected, setSelected] = useState('Home');
   const { routes } = state;
   const renderColor = (currentTab) => (currentTab === selected ? 'red' : 'black');
+
+  const { showTabBar } = useTabBar();
 
   const animation = useRef(new Animated.Value(0)).current;
 
@@ -22,17 +25,27 @@ const TabBar = ({ state, navigation }) => {
     }
   };
 
-  // const showTabBar = () => {
-  //   Animated.timing(animation, {
-  //     toValue: 1,
-  //     duration: 2000,
-  //     useNativeDriver: true,
-  //   }).start();
-  // }
+  const toggleTabBarAnimation = () => {
+    // console.log(showTabBar)
+    if(showTabBar){
+      Animated.timing(animation, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+    else{
+      Animated.timing(animation, {
+        toValue: 100,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
 
-  // useEffect(() => {
-  //   showTabBar();
-  // },[]);
+  useEffect(() => {
+    toggleTabBarAnimation();
+  },[showTabBar]);
   
 
   return (
